@@ -18,6 +18,19 @@ class SiteController extends Controller
         return $this->render('curriculum');
     }
 
+    public function actionTestDb()
+    {
+        try {
+            $result = Yii::$app->db->createCommand('SELECT Monday FROM Curriculum LIMIT 1')->queryOne();
+            return var_dump($result);
+            echo '<pre>';
+            print_r($result);
+            echo '</pre>';
+        } catch (\yii\db\Exception $e) {
+            echo '❌ Conexiune eșuată: ' . $e->getMessage();
+        }
+    }
+
 
     /**
      * {@inheritdoc}
