@@ -25,6 +25,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <head>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+<!--    Font Awesome-->
+    <?= Html::cssFile('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css') ?>
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
@@ -36,23 +41,38 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+
+
+    $menuItems = [];
+    // Putin mai clar. Daca user-ul este logat !isGuest, avem access la orar
+    // si ne putem deloga
+    if (!Yii::$app->user->isGuest) {
+
+        $menuItems[] = ['label' => 'Orar', 'url' => ['/orar']];
+        $menuItems[] = '<li class="nav-item d-flex align-items-center">'
+            . Html::beginForm(['/site/logout'], 'post', ['class' => 'm-0'])
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->Username . ')',
+                [
+                    'class' => 'btn btn-link nav-link m-0 p-0',
+                    'style' => 'line-height: 1.6; background: none; border: none;'
+                ]
+            )
+            . Html::endForm()
+            . '</li>';
+
+    } else {
+
+        // Daca nu este logat, nu ai access la orar, dar te poti logat
+
+        $menuItems[] = ['label' => 'Login', 'url' => ['/login']];
+    }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => 'Orar', 'url' => ['/site/curriculum']],
-            Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/site/login']]
-                : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-        ]
+        'items' => $menuItems,
     ]);
-    NavBar::end();
+
     ?>
 </header>
 
@@ -69,7 +89,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <footer id="footer" class="mt-auto py-3 bg-light">
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; Orar - Magic 5 <?= date('Y') ?></div>
+            <div class="col-md-6 text-center text-md-start"><a style="color: #ce1d3f" href="https://magic5.ro/" target="_blank">&copy; Orar - Magic 5 / <?= date('Y') ?> </a></div>
             <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
         </div>
     </div>

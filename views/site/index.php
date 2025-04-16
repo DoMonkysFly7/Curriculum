@@ -1,53 +1,62 @@
 <?php
 
 /** @var yii\web\View $this */
-
-$this->title = 'My Yii Application';
+$this->title = 'Hello Yii2!';
 ?>
-<div class="site-index">
 
-    <div class="jumbotron text-center bg-transparent mt-5 mb-5">
-        <h1 class="display-4">Congratulations!</h1>
+<div class="site-index mt-5 pt-5">
 
-        <p class="lead">Hello Yii.</p>
-
-        <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
+    <div class="jumbotron text-center bg-light py-5 px-3 rounded">
+        <h1 class="display-5 fw-bold mb-3">
+            <i class="fas fa-check-circle text-success me-2"></i>Felicitări!
+        </h1>
+        <p class="lead mb-0 text-muted">echo "<strong>Hello Yii2!</strong>"</p>
     </div>
 
-    <div class="body-content">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="p-4 border rounded h-100 shadow-sm bg-white">
+                    <h2 class="h5 text-primary">
+                        <i class="fas fa-handshake me-2"></i>Salutare
 
-        <div class="row">
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                    </h2>
+                    <p class="mb-0">
+                        Bine ai venit la primul meu proiect în Yii2! Sper să nu fie și ultimul. Astăzi îți voi prezenta exercițiul <strong>„Orar liceean”</strong>. Sper că o să îți placă să-l folosești la fel de mult cum mi-a plăcut mie să-l creez.
+                    </p>
+                </div>
             </div>
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+            <div class="col-md-4">
+                <div class="p-4 border rounded h-100 shadow-sm bg-white">
+                    <h2 class="h5 text-primary">
+                        <i class="fas fa-history me-2"></i>Înapoi în timp
+                    </h2>
+                    <p class="mb-0">
+                        Fă o pauză de la grijile cotidiene și imaginează-ți că ești iar în liceu. Doar că, de data asta, ai acces la o platformă digitală (MagicEducativa!) pentru orarul tău — nu doar o foaie mototolită (pe care, oricum, probabil ai pierdut-o).
+                    </p>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-md-4">
+                <div class="p-4 border rounded h-100 shadow-sm bg-white">
+                    <h2 class="h5 text-primary">
+                        <i class="fas fa-tasks me-2"></i>Ce poți face
+                    </h2>
+                    <ul class="ps-3 mb-3">
+                        <li><i class="fas fa-edit text-secondary me-1"></i> Modifică-ți orarul după cum dorești, adăugând sau ștergând clasele</li>
+                        <li><i class="fas fa-bold text-secondary me-1"></i> Ai o oră importantă săptămâna asta? Poți să folosești editorul de text pentru a o „îngroșa” sau a o sublinia</li>
+                        <li><i class="fas fa-sticky-note text-secondary me-1"></i> Nu vrei să uiți de tema lui domn' Popescu de la Fizică, nu? Aia mai lipsea, încă un 4 în catalog... deci mai bine adaugă-ți o notiță!</li>
+                    </ul>
+                    <p class="mb-3">Înainte de toate însă, orarul tău este o treabă personală, așa că trebuie să te loghezi. Succes în noul an școlar!</p>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                    <div class="text-center">
+                        <a class="btn btn-primary px-4" href="/login">
+                            <i class="fas fa-sign-in-alt me-2"></i>Logare &raquo;
+                        </a>
+                    </div>
 
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+
+                </div>
             </div>
         </div>
-
     </div>
 </div>

@@ -20,7 +20,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Users', // User => Users
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -42,16 +42,26 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+//        /*
+//
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
+                'login' => 'site/login',
+                'logout' => 'site/logout',
+                'orar' => 'site/curriculum',
+                '' => 'site/index',
             ],
         ],
-        */
+
+
+
+//        */
     ],
     'params' => $params,
+    'language' => 'ro',
 ];
 
 if (YII_ENV_DEV) {

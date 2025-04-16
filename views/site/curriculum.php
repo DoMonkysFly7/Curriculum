@@ -45,7 +45,7 @@ $this->title = 'Curriculum';
 ?>
 
 <div class="container">
-    <h1 class="text-center my-4">Curriculum săptămânal</h1>
+    <h1 class="text-center my-4">Curriculum săptămânal - clasa IX B</h1>
 
     <form method="post" action="">
         <div class="row justify-content-center flex-nowrap">

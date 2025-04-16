@@ -12,20 +12,66 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+    public function actionTestLogin()
+    {
+        $user = \app\models\Users::findByUsername('Oprea_Stefan');
+
+        if (!$user) {
+            echo "User not found.";
+            return;
+        }
+
+        echo "✅ Username: " . $user->Username . "<br>"; // cu majusculă!
+        echo "✅ Password (hash): " . $user->Password . "<br>";
+
+    }
 
     public function actionCurriculum()
     {
+        // Daca nu esti logat, nu poti intra
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
+
+        // Obtinem materiile si intervalele lor pentru user-ul respectiv
+
+        $result = Yii::$app->db->createCommand('SELECT Monday FROM Curriculum LIMIT 1')->queryOne();
+
+        $rawJson = $result['Monday']; // JSON din baza de date
+
+        $materii = json_decode($rawJson, true);
+
+        echo '<ul>';
+        foreach ($materii as $interval => $materie) {
+            echo "<li><strong>$interval</strong>: $materie</li>";
+        }
+        echo '</ul>';
+
         return $this->render('curriculum');
     }
 
     public function actionTestDb()
     {
+        // Test DB
+
         try {
             $result = Yii::$app->db->createCommand('SELECT Monday FROM Curriculum LIMIT 1')->queryOne();
-            return var_dump($result);
-            echo '<pre>';
-            print_r($result);
-            echo '</pre>';
+
+
+            $rawJson = $result['Monday']; // JSON din baza de date
+
+            $materii = json_decode($rawJson, true);
+
+            echo '<ul>';
+            foreach ($materii as $interval => $materie) {
+                echo "<li><strong>$interval</strong>: $materie</li>";
+            }
+            echo '</ul>';
+
+
+
+
+
         } catch (\yii\db\Exception $e) {
             echo '❌ Conexiune eșuată: ' . $e->getMessage();
         }
@@ -40,10 +86,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout'],
+                'only' => ['logout', 'curriculum'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'curriculum'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

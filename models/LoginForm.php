@@ -35,6 +35,16 @@ class LoginForm extends Model
         ];
     }
 
+    // Pentru UX, trebuie sa fie in lb. Romana
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Utilizator',
+            'password' => 'Parolă',
+            'rememberMe' => 'Ține-mă minte',
+        ];
+    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
@@ -73,7 +83,9 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Users::findByUsername($this->username);
+//            $this->_user = \app\models\Users::findByUsername($this->username);
+
         }
 
         return $this->_user;
