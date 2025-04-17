@@ -27,6 +27,8 @@ class SiteController extends Controller
 
         $curriculum = Curriculum::findByUser($userId);
 
+
+        // Data pt. view
         $schedule = [
             'Luni' => json_decode($curriculum['Luni'], true),
             'Marți' => json_decode($curriculum['Marti'], true),
@@ -37,7 +39,20 @@ class SiteController extends Controller
 
         $zile = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri'];
 
-        return $this->render('curriculum', ['schedule' => $schedule, 'zile' => $zile]);
+        $notite = [
+            'Luni' => $curriculum->Nota_Luni ?? '',
+            'Marti' => $curriculum->Nota_Marti ?? '',
+            'Miercuri' => $curriculum->Nota_Miercuri ?? '',
+            'Joi' => $curriculum->Nota_Joi ?? '',
+            'Vineri' => $curriculum->Nota_Vineri ?? '',
+        ];
+
+
+        return $this->render('curriculum', [
+            'schedule' => $schedule,
+            'zile' => $zile,
+            'notite' => $notite,
+        ]);
     }
 
     /**
@@ -57,6 +72,21 @@ class SiteController extends Controller
 
             // array de zile în ordine, fiecare zi reprezinta un index (Luni => 0, Marti => 1...)
             $zile = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri'];
+
+            // trimite si notitele cu tot cu modificarile lor, fiecare notita corespunzatoare fiecarei zile
+            $noteFields = [
+                'Nota_Luni' => 'notita_0',
+                'Nota_Marti' => 'notita_1',
+                'Nota_Miercuri' => 'notita_2',
+                'Nota_Joi' => 'notita_3',
+                'Nota_Vineri' => 'notita_4',
+            ];
+
+            foreach ($noteFields as $field => $postKey) {
+                if (isset($post[$postKey])) {
+                    $model->$field = trim($post[$postKey]);
+                }
+            }
 
             foreach ($zile as $index => $zi) {
                 if (isset($post['materii'][$index])) {

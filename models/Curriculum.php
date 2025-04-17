@@ -23,6 +23,7 @@ class Curriculum extends ActiveRecord
     {
         return [
             [['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri'], 'safe'],
+            [['Nota_Luni', 'Nota_Marti', 'Nota_Miercuri', 'Nota_Joi', 'Nota_Vineri'], 'safe'],
         ];
     }
 }

@@ -165,6 +165,11 @@ $this->title = 'Curriculum';
                             <?php endforeach; ?>
                         </ul>
 
+                        <div class="p-2">
+                            <label for="notita-<?= $ziIndex ?>" class="form-label small text-muted">Notiță pentru <?= $zi ?>:</label>
+                            <textarea maxlength="30" name="notita_<?= $ziIndex ?>" id="notita-<?= $ziIndex ?>" rows="2" class="form-control"><?= htmlspecialchars($notite[$zi] ?? '') ?></textarea>
+                        </div>
+
                         <div class="card-footer">
                             <button type="button" class="btn btn-sm btn-outline-success add-hour" data-zi="<?= $ziIndex ?>">＋</button>
                             <button type="button" class="btn btn-sm btn-outline-danger remove-hour" data-zi="<?= $ziIndex ?>">−</button>
