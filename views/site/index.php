@@ -45,6 +45,10 @@ $this->title = 'Hello Yii2!';
                         <li><i class="fas fa-edit text-secondary me-1"></i> Modifică-ți orarul după cum dorești, adăugând sau ștergând clasele</li>
                         <li><i class="fas fa-sticky-note text-secondary me-1"></i> Nu vrei să uiți de tema lui domn' Popescu de la Fizică, nu? Aia mai lipsea, încă un 4 în catalog... deci mai bine adaugă-ți o notiță pentru ziua aia!</li>
                     </ul>
+
+
+                    <?php if (Yii::$app->user->isGuest) { ?>
+
                     <p class="mb-3">Înainte de toate însă, orarul tău este o treabă personală, așa că trebuie să te loghezi. Succes în noul an școlar!</p>
 
                     <div class="text-center">
@@ -53,6 +57,7 @@ $this->title = 'Hello Yii2!';
                         </a>
                     </div>
 
+                    <?php } ?>
 
                 </div>
             </div>

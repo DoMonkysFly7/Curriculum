@@ -31,13 +31,13 @@ class SiteController extends Controller
         // Data pt. view
         $schedule = [
             'Luni' => json_decode($curriculum['Luni'], true),
-            'Marți' => json_decode($curriculum['Marti'], true),
+            'Marti' => json_decode($curriculum['Marti'], true),
             'Miercuri' => json_decode($curriculum['Miercuri'], true),
             'Joi' => json_decode($curriculum['Joi'], true),
             'Vineri' => json_decode($curriculum['Vineri'], true),
         ];
 
-        $zile = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri'];
+        $zile = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri'];
 
         $notite = [
             'Luni' => $curriculum->Nota_Luni ?? '',
