@@ -37,10 +37,14 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['info'],
+                    'categories' => ['yii\db\Command::*'],
+                    'logFile' => '@runtime/logs/sql.log',
+                    'logVars' => [],
                 ],
             ],
         ],
+
         'db' => $db,
 //        /*
 //

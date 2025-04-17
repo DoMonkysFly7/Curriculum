@@ -8,74 +8,86 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
+
+use app\models\Curriculum;
 
 class SiteController extends Controller
 {
-    public function actionTestLogin()
-    {
-        $user = \app\models\Users::findByUsername('Oprea_Stefan');
 
-        if (!$user) {
-            echo "User not found.";
-            return;
-        }
-
-        echo "✅ Username: " . $user->Username . "<br>"; // cu majusculă!
-        echo "✅ Password (hash): " . $user->Password . "<br>";
-
-    }
-
+    /**
+     * {..show curriculum.}
+     */
     public function actionCurriculum()
     {
-        // Daca nu esti logat, nu poti intra
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['site/login']);
         }
 
-        // Obtinem materiile si intervalele lor pentru user-ul respectiv
+        $userId = Yii::$app->user->id;
 
-        $result = Yii::$app->db->createCommand('SELECT Monday FROM Curriculum LIMIT 1')->queryOne();
+        $curriculum = Curriculum::findByUser($userId);
 
-        $rawJson = $result['Monday']; // JSON din baza de date
+        $schedule = [
+            'Luni' => json_decode($curriculum['Luni'], true),
+            'Marți' => json_decode($curriculum['Marti'], true),
+            'Miercuri' => json_decode($curriculum['Miercuri'], true),
+            'Joi' => json_decode($curriculum['Joi'], true),
+            'Vineri' => json_decode($curriculum['Vineri'], true),
+        ];
 
-        $materii = json_decode($rawJson, true);
+        $zile = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri'];
 
-        echo '<ul>';
-        foreach ($materii as $interval => $materie) {
-            echo "<li><strong>$interval</strong>: $materie</li>";
-        }
-        echo '</ul>';
-
-        return $this->render('curriculum');
+        return $this->render('curriculum', ['schedule' => $schedule, 'zile' => $zile]);
     }
 
-    public function actionTestDb()
+    /**
+     * {..edit curriculum form.}
+     */
+    public function actionEditCurriculum()
     {
-        // Test DB
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
 
-        try {
-            $result = Yii::$app->db->createCommand('SELECT Monday FROM Curriculum LIMIT 1')->queryOne();
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+            $userId = Yii::$app->user->id;
 
+            $model = Curriculum::findByUser($userId);
 
-            $rawJson = $result['Monday']; // JSON din baza de date
-
-            $materii = json_decode($rawJson, true);
-
-            echo '<ul>';
-            foreach ($materii as $interval => $materie) {
-                echo "<li><strong>$interval</strong>: $materie</li>";
+            if (!$model) {
+                $model = new Curriculum();
+                $model->ID_User = $userId;
             }
-            echo '</ul>';
 
+            // array de zile în ordine, fiecare zi reprezinta un index (Luni => 0, Marti => 1...)
+            $zile = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri'];
 
+            foreach ($zile as $index => $zi) {
+                if (isset($post['materii'][$index])) {
+                    $materii = $post['materii'][$index];
 
+                    // transformam in JSON
+                    $model->$zi = json_encode($materii, JSON_UNESCAPED_UNICODE);
 
+                } else {
+                    // dacă nu există deloc acea zi în $_POST...e goala
+                    $model->$zi = json_encode([]);
+                }
+            }
 
-        } catch (\yii\db\Exception $e) {
-            echo '❌ Conexiune eșuată: ' . $e->getMessage();
+            if ($model->save(false)) {
+                Yii::$app->session->setFlash('success', 'Curriculum salvat cu succes!');
+            } else {
+                Yii::$app->session->setFlash('error', 'Eroare la salvare!');
+                Yii::error($model->getErrors(), __METHOD__);
+            }
+
+            return $this->redirect(['site/curriculum']);
         }
     }
+
+
 
 
     /**

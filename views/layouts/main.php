@@ -63,7 +63,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
     } else {
 
-        // Daca nu este logat, nu ai access la orar, dar te poti logat
 
         $menuItems[] = ['label' => 'Login', 'url' => ['/login']];
     }

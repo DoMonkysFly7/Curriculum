@@ -44,31 +44,50 @@
 $this->title = 'Curriculum';
 ?>
 
-<div class="container">
+<div class="container mt-5 pt-5">
     <h1 class="text-center my-4">Curriculum săptămânal - clasa IX B</h1>
 
-    <form method="post" action="">
+<!--    Trimitem catre o functie separata. Pt. simplitate ramanem in SiteController -->
+
+    <form method="post" action="<?= \yii\helpers\Url::to(['site/edit-curriculum']) ?>">
+<!--        protectie CSRF -->
+        <?= \yii\helpers\Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->getCsrfToken()) ?>
+
         <div class="row justify-content-center flex-nowrap">
             <?php
-            $zile = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri'];
-            foreach ($zile as $ziIndex => $zi): ?>
+            foreach ($zile as $ziIndex => $zi) {
+
+
+                $materii = $schedule[$zi] ?? [];
+                ?>
+
+
                 <div class="col-auto mb-3">
                     <div class="card" data-zi-index="<?= $ziIndex ?>">
+
+
                         <div class="card-header bg-primary text-white">
                             <strong><?= $zi ?></strong>
                         </div>
+
+
                         <ul class="list-group list-group-flush" id="lista-<?= $ziIndex ?>">
-                            <?php for ($i = 1; $i <= 6; $i++):
-                                $ora_inceput = 8 + $i - 1;
-                                $ora_sfarsit = 9 + $i - 1;
-                                $materie = "Exemplu $i";
-                                $input_name = "materii[$ziIndex][$i]";
+
+
+                            <?php foreach ($materii as $interval => $materie) {
+
+                                $input_name = "materii[$ziIndex][$interval]";
                                 ?>
+
+
                                 <li class="list-group-item">
-                                    <?= sprintf('%02d:00 - %02d:00', $ora_inceput, $ora_sfarsit) ?><br>
-                                    <input type="text" class="materie-input" name="<?= $input_name ?>" value="<?= $materie ?>">
+                                    <?= $interval ?><br>
+                                    <input type="text" class="materie-input" name="<?= $input_name ?>" value="<?= htmlspecialchars($materie) ?>">
                                 </li>
-                            <?php endfor; ?>
+
+                            <?php } ?>
+
+
                         </ul>
                         <div class="card-footer">
                             <button type="button" class="btn btn-sm btn-outline-success add-hour" data-zi="<?= $ziIndex ?>">＋</button>
@@ -76,38 +95,24 @@ $this->title = 'Curriculum';
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php }; ?>
         </div>
 
         <button type="submit" class="btn btn-success save-button">Salvează modificările</button>
     </form>
 </div>
 
-<script>
-    document.querySelectorAll('.add-hour').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const zi = btn.getAttribute('data-zi');
-            const list = document.getElementById('lista-' + zi);
-            const count = list.children.length;
-            const startHour = 8 + count;
-            const endHour = 9 + count;
-            const hourLabel = `${String(startHour).padStart(2, '0')}:00 - ${String(endHour).padStart(2, '0')}`;
-            const inputName = `materii[${zi}][${count + 1}]`;
 
-            const li = document.createElement('li');
-            li.className = 'list-group-item';
-            li.innerHTML = `${hourLabel}<br><input type="text" class="materie-input" name="${inputName}" value="Nouă materie">`;
-            list.appendChild(li);
-        });
-    });
+<!--In caz ca am modificat cu success-->
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+    <div class="alert alert-success"><?= Yii::$app->session->getFlash('success') ?></div>
+<?php elseif (Yii::$app->session->hasFlash('error')): ?>
+    <div class="alert alert-danger"><?= Yii::$app->session->getFlash('error') ?></div>
+<?php endif; ?>
 
-    document.querySelectorAll('.remove-hour').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const zi = btn.getAttribute('data-zi');
-            const list = document.getElementById('lista-' + zi);
-            if (list.children.length > 0) {
-                list.removeChild(list.lastElementChild);
-            }
-        });
-    });
-</script>
+
+<?php
+$this->registerJsFile('@web/assets/js/curriculum.js');
+?>
+
+

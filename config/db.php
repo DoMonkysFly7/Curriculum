@@ -6,7 +6,8 @@ return [
     'username' => 'r123325opre_r123325opre',
     'password' => 'Yk5&#vJo@5Fp3i',
     'charset' => 'utf8mb4',
-
+    'enableLogging' => true,
+    'enableProfiling' => true,
 
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,
