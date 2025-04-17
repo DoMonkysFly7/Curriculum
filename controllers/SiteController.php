@@ -55,11 +55,6 @@ class SiteController extends Controller
 
             $model = Curriculum::findByUser($userId);
 
-            if (!$model) {
-                $model = new Curriculum();
-                $model->ID_User = $userId;
-            }
-
             // array de zile în ordine, fiecare zi reprezinta un index (Luni => 0, Marti => 1...)
             $zile = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri'];
 
@@ -67,20 +62,29 @@ class SiteController extends Controller
                 if (isset($post['materii'][$index])) {
                     $materii = $post['materii'][$index];
 
+                    if (count($materii) > 8) {
+
+                        Yii::$app->session->setFlash('error', 'O zi nu poate avea mai mult decat 8 materii!');
+
+                        return $this->redirect(['site/curriculum']);
+
+                    }
+
                     // transformam in JSON
                     $model->$zi = json_encode($materii, JSON_UNESCAPED_UNICODE);
 
                 } else {
+
+
                     // dacă nu există deloc acea zi în $_POST...e goala
                     $model->$zi = json_encode([]);
                 }
             }
 
             if ($model->save(false)) {
-                Yii::$app->session->setFlash('success', 'Curriculum salvat cu succes!');
+                Yii::$app->session->setFlash('success', 'Orar salvat!');
             } else {
                 Yii::$app->session->setFlash('error', 'Eroare la salvare!');
-                Yii::error($model->getErrors(), __METHOD__);
             }
 
             return $this->redirect(['site/curriculum']);
@@ -155,7 +159,8 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['site/curriculum']);
+//            return $this->goBack();
         }
 
         $model->password = '';

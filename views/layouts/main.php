@@ -36,18 +36,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 <header id="header">
     <?php
+
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+        'options' => ['class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top'],
     ]);
 
-
     $menuItems = [];
-    // Putin mai clar. Daca user-ul este logat !isGuest, avem access la orar
-    // si ne putem deloga
-    if (!Yii::$app->user->isGuest) {
 
+    if (!Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Orar', 'url' => ['/orar']];
         $menuItems[] = '<li class="nav-item d-flex align-items-center">'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'm-0'])
@@ -60,18 +58,17 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             )
             . Html::endForm()
             . '</li>';
-
     } else {
-
-
         $menuItems[] = ['label' => 'Login', 'url' => ['/login']];
     }
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => $menuItems,
+        'encodeLabels' => false
     ]);
 
+    NavBar::end();
     ?>
 </header>
 
@@ -80,7 +77,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <?php if (!empty($this->params['breadcrumbs'])): ?>
             <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
         <?php endif ?>
-        <?= Alert::widget() ?>
+<!--        --><?php //= Alert::widget() ?>
         <?= $content ?>
     </div>
 </main>

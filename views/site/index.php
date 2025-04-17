@@ -43,8 +43,7 @@ $this->title = 'Hello Yii2!';
                     </h2>
                     <ul class="ps-3 mb-3">
                         <li><i class="fas fa-edit text-secondary me-1"></i> Modifică-ți orarul după cum dorești, adăugând sau ștergând clasele</li>
-                        <li><i class="fas fa-bold text-secondary me-1"></i> Ai o oră importantă săptămâna asta? Poți să folosești editorul de text pentru a o „îngroșa” sau a o sublinia</li>
-                        <li><i class="fas fa-sticky-note text-secondary me-1"></i> Nu vrei să uiți de tema lui domn' Popescu de la Fizică, nu? Aia mai lipsea, încă un 4 în catalog... deci mai bine adaugă-ți o notiță!</li>
+                        <li><i class="fas fa-sticky-note text-secondary me-1"></i> Nu vrei să uiți de tema lui domn' Popescu de la Fizică, nu? Aia mai lipsea, încă un 4 în catalog... deci mai bine adaugă-ți o notiță pentru ziua aia!</li>
                     </ul>
                     <p class="mb-3">Înainte de toate însă, orarul tău este o treabă personală, așa că trebuie să te loghezi. Succes în noul an școlar!</p>
 
