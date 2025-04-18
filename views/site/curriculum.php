@@ -114,6 +114,34 @@
             font-size: 0.75rem;
         }
     }
+
+    /*Ultim touch, poze diferie de background*/
+     body.curriculum-bg-1 {
+         /*Bg normal, lasam gol*/
+         background: url('/') no-repeat center center fixed;
+         background-size: cover;
+     }
+
+    body.curriculum-bg-2 {
+        background: url('assets/images/bg1.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    body.curriculum-bg-3 {
+        background: url('assets/images/bg2.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    body.curriculum-bg-4 {
+        background: url('assets/images/bg3.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .background-selector {
+        max-width: 300px;
+        margin: 0 auto 30px;
+    }
+
 </style>
 
 
@@ -134,7 +162,7 @@ $this->title = 'Curriculum';
     <?php endif; ?>
 
 
-    <h1 class="text-center my-4">Curriculum săptămânal - clasa IX B</h1>
+    <h1 class="text-center my-4 changeColor">Curriculum săptămânal - clasa IX B</h1>
 
 <!--    Trimitem catre o functie separata. Pt. simplitate ramanem in SiteController -->
 
@@ -143,6 +171,17 @@ $this->title = 'Curriculum';
 
 <!--        protectie CSRF -->
         <?= \yii\helpers\Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->getCsrfToken()) ?>
+
+
+        <div class="background-selector text-center mb-4">
+            <label for="backgroundSelect" class="form-label fw-bold changeColor">Alege fundalul orarului:</label>
+            <select id="backgroundSelect" class="form-select">
+                <option value="1">Fundal Normal</option>
+                <option value="2">Fundal Nirvana</option>
+                <option value="3">Fundal Metallica</option>
+                <option value="4">Fundal Depeche Mode</option>
+            </select>
+        </div>
 
 
         <div class="orar-scroll-wrapper">

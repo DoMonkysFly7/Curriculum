@@ -44,6 +44,7 @@ $this->title = 'Hello Yii2!';
                     <ul class="ps-3 mb-3">
                         <li><i class="fas fa-edit text-secondary me-1"></i> Modifică-ți orarul după cum dorești, adăugând sau ștergând clasele</li>
                         <li><i class="fas fa-sticky-note text-secondary me-1"></i> Nu vrei să uiți de tema lui domn' Popescu de la Fizică, nu? Aia mai lipsea, încă un 4 în catalog... deci mai bine adaugă-ți o notiță pentru ziua aia!</li>
+                        <li><i class="fas fa-image text-secondary me-1"></i> Schimba imaginea de fundal dupa placul inimii! (in limita a 4 optiuni)</li>
                     </ul>
 
 
